@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+
+    mongo:
+        image: mongo:4.4.0-rc7-bionic
+        environment:
+            MONGO_USERNAME: root
+            MONGO_PASSWORD: password
+            MONGO_DATABASE: hdb
+        ports:
+            - "27017:27017"
+
+    paranuara:
+        image: paranuara:0.1
+        environment:
+            MONGODB_URI: "mongodb://mongo/paranuaraDB"
+        ports:
+            - "27016:27016"

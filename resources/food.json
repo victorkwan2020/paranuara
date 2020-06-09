@@ -1,0 +1,10 @@
+[
+    {"name":"apple", "category": "fruit"},
+    {"name":"banana","category": "fruit"},
+    {"name":"beetroot","category": "vegetable"},
+    {"name":"carrot", "category": "vegetable"},
+    {"name":"celery","category": "vegetable"},
+    {"name":"cucumber","category": "vegetable"},
+    {"name":"orange","category": "fruit"},
+    {"name":"strawberry", "category": "fruit"}
+]
