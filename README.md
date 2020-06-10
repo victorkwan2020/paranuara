@@ -8,6 +8,7 @@
 
 ## Prerequistes
 
+* Whole deploy process was tested on ubuntu on 18.04 LTS
 * Docker
 * docker-compose
 * internet connection (to pull down base image for building the app containers)
@@ -15,7 +16,7 @@
 
 ## Installation
 
-To keep things simple, the building of containers are part of the docker-compose config. So everytime you bring the services up, it will attempt to build the image on-spot. This shouldn't add too much to the startup time except for the first run where the base images gets pull down from dockerhub. As the last step of the build process, the automated test included will be run and the buildwill fail if any tests fails. 
+To keep things simple, the building of containers are part of the docker-compose config. So everytime you bring the services up, it will attempt to build the image on-spot. This shouldn't add too much to the startup time except for the first run where the base images gets pull down from dockerhub. As the last step of the build process, the automated test included will be ran and the build will fail if any tests fails. 
 
 ### To run the API services (and building it)
 
@@ -36,6 +37,8 @@ docker-compose down
 The provided people.json, companies.json has been copied to the resource folder. A food.json was also introduced as mean of hadrdcoding in a list of known vegetables and fruits. Feel free to replace them for testing purpose. Add new fruits or vegetables to food.json if required. Any food that cannot be classified by the service will raise a warning in the log and only known food will be put forward to the output.
 
 To insert the data from these 3 files, cd into the resources folder. While the API service (the mongo service) is up run:
+
+#### Note the script requires mongoimport tool to be installed
 
 ```sh
 ./import.sh
@@ -59,10 +62,10 @@ python -m unittest -vvv test.test_app
   * business logic (people_info.py)
   * storage/domain model (models.py)
 * Mongo was used for a few reasons:
- * easy to setup, very little db admin invovled
- * data already in json like format, which make importing very straight forward
- * scope of service don't required modelling complex relationship between many different entities
- * there are other factors that could change this decsions eg. volume of data, performance requirments, likelihood of other data being added,  other potential future usecases of the services. With all of those not known and base on the KISS pricipal, i chose the option that requires the least code to implement with.
+  * easy to setup, very little db admin invovled
+  * data already in json like format, which make importing very straight forward
+  * scope of service don't required modelling complex relationship between many different entities
+  * there are other factors that could change this decsions eg. volume of data, performance requirments, likelihood of other data being added,  other potential future usecases of the services. With all of those not known and base on the KISS pricipal, i chose the option that requires the least code to implement with.
 * Preprocess steps may simplify the code:
   * Veg and Fruit classes are being read into the service once and being cached at the moment. And each time food list was requested the Fruits and Vegetable list get generated on the fly. This could have been done for each person's record straight after the import
   * Friends list for each person contains self references and friends that are potentially dead or don't have brown eyes. We could also clean the friends list for every person on startup so it only contains friends that is still alive and have brown eyes, then the querying code will also be simplified. But its really a micro-opitmization that you need to undo as soon as a new query required base on friends.
