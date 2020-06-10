@@ -12,7 +12,10 @@ services:
             - "27017:27017"
 
     paranuara:
-        image: paranuara:0.1
+        build:
+            context: .
+        depends_on: 
+            - mongo
         environment:
             MONGODB_URI: "mongodb://mongo/paranuaraDB"
         ports:
