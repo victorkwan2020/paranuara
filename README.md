@@ -65,7 +65,7 @@ python -m unittest -vvv test.test_app
   * easy to setup, very little db admin invovled
   * data already in json like format, which make importing very straight forward
   * scope of service don't required modelling complex relationship between many different entities
-  * there are other factors that could change this decsions eg. volume of data, performance requirments, likelihood of other data being added,  other potential future usecases of the services. With all of those not known and base on the KISS pricipal, i chose the option that requires the least code to implement with.
+  * there are other factors that could change this decsions eg. volume of data, performance requirments, likelihood of other data being added,  other potential future usecases of the services. With all of those not known and base on the KISS principal, i chose the option that requires the least code to implement with.
 * Preprocess steps may simplify the code:
   * Veg and Fruit classes are being read into the service once and being cached at the moment. And each time food list was requested the Fruits and Vegetable list get generated on the fly. This could have been done for each person's record straight after the import
   * Friends list for each person contains self references and friends that are potentially dead or don't have brown eyes. We could also clean the friends list for every person on startup so it only contains friends that is still alive and have brown eyes, then the querying code will also be simplified. But its really a micro-opitmization that you need to undo as soon as a new query required base on friends.
